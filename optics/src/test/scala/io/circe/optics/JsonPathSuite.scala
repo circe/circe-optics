@@ -4,7 +4,6 @@ import cats.kernel.Eq
 import io.circe._
 import io.circe.generic.semiauto._
 import io.circe.syntax._
-import io.circe.tests.CirceSuite
 import io.circe.optics.JsonPath.root
 
 class JsonPathSuite extends CirceSuite {

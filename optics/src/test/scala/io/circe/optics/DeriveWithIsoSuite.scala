@@ -3,7 +3,6 @@ package io.circe.optics
 import io.circe._
 import io.circe.generic.semiauto._
 import io.circe.syntax._
-import io.circe.tests.CirceSuite
 import monocle.Iso
 
 class DeriveWithIsoSuite extends CirceSuite {

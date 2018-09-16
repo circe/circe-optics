@@ -1,8 +1,7 @@
 package io.circe.optics
 
-import cats.{ Hash, Order }
+import cats.kernel.{ Hash, Order }
 import io.circe.optics.all._
-import io.circe.tests.CirceSuite
 import io.circe.{ Json, JsonNumber, JsonObject }
 import monocle.function.Plated.plate
 import monocle.syntax.all._
