@@ -17,7 +17,7 @@ val compilerOptions = Seq(
 )
 
 val circeVersion = "0.9.3"
-val monocleVersion = "0.5.1-cats"
+val monocleVersion = "1.5.1-cats"
 val previousCirceFs2Version = "0.9.0"
 
 val baseSettings = Seq(
@@ -48,8 +48,8 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
     moduleName := "circe-optics",
     mimaPreviousArtifacts := Set("io.circe" %% "circe-optics" % previousCirceFs2Version),
     libraryDependencies ++= Seq(
-      "com.github.julien-truffaut" %%% "monocle-core" % "1.5.1-cats",
-      "com.github.julien-truffaut" %%% "monocle-law" % "1.5.1-cats" % Test,
+      "com.github.julien-truffaut" %%% "monocle-core" % monocleVersion,
+      "com.github.julien-truffaut" %%% "monocle-law" % monocleVersion % Test,
       "io.circe" %%% "circe-core" % circeVersion,
       "io.circe" %%% "circe-generic" % circeVersion % Test,
       "io.circe" %%% "circe-testing" % circeVersion % Test
