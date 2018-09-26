@@ -37,7 +37,10 @@ val allSettings = baseSettings ++ publishSettings
 
 val docMappingsApiDir = settingKey[String]("Subdirectory in site target directory for API docs")
 
-val root = project.in(file(".")).settings(noPublishSettings).aggregate(opticsJVM, opticsJS)
+val root = project.in(file("."))
+  .settings(allSettings)
+  .settings(noPublishSettings)
+  .aggregate(opticsJVM, opticsJS)
 
 lazy val optics = crossProject(JSPlatform, JVMPlatform)
   .withoutSuffixFor(JVMPlatform)
