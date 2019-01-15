@@ -16,7 +16,7 @@ val compilerOptions = Seq(
   "-Xfuture"
 )
 
-val circeVersion = "0.11.0"
+val circeVersion = "0.11.1"
 val monocleVersion = "1.5.1-cats"
 val previousCirceOpticsVersion = "0.10.0"
 
