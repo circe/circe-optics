@@ -17,7 +17,7 @@ val compilerOptions = Seq(
 )
 
 val circeVersion = "0.11.1"
-val monocleVersion = "1.5.1-cats"
+val monocleVersion = "1.6.0-M1"
 val previousCirceOpticsVersion = "0.10.0"
 
 val baseSettings = Seq(
