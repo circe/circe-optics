@@ -38,7 +38,8 @@ trait JsonOptics {
         def onNumber(value: JsonNumber): Option[Double] = {
           val d = value.toDouble
 
-          if (java.lang.Double.isInfinite(d)) None else {
+          if (java.lang.Double.isInfinite(d)) None
+          else {
             if (Json.fromDouble(d).flatMap(_.asNumber).exists(JsonNumber.eqJsonNumber.eqv(value, _))) Some(d) else None
           }
         }
@@ -50,9 +51,13 @@ trait JsonOptics {
   )(Json.fromDoubleOrNull)
 
   /** points to all values of a JsonObject or JsonList */
-  final lazy val jsonDescendants: Traversal[Json, Json] = new Traversal[Json, Json]{
+  final lazy val jsonDescendants: Traversal[Json, Json] = new Traversal[Json, Json] {
     override def modifyF[F[_]](f: Json => F[Json])(s: Json)(implicit F: Applicative[F]): F[Json] =
-      s.fold(F.pure(s), _ => F.pure(s), _ => F.pure(s), _ => F.pure(s),
+      s.fold(
+        F.pure(s),
+        _ => F.pure(s),
+        _ => F.pure(s),
+        _ => F.pure(s),
         arr => F.map(Each.each[Vector[Json], Json].modifyF(f)(arr))(Json.arr(_: _*)),
         obj => F.map(Each.each[JsonObject, Json].modifyF(f)(obj))(Json.fromJsonObject)
       )
@@ -60,7 +65,8 @@ trait JsonOptics {
 
   implicit final lazy val jsonPlated: Plated[Json] = new Plated[Json] {
     val plate: Traversal[Json, Json] = new Traversal[Json, Json] {
-      def modifyF[F[_]](f: Json => F[Json])(a: Json)(implicit
+      def modifyF[F[_]](f: Json => F[Json])(a: Json)(
+        implicit
         F: Applicative[F]
       ): F[Json] =
         a.fold(

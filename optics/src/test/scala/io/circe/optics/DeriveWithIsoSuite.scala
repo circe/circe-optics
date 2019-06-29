@@ -10,16 +10,16 @@ class DeriveWithIsoSuite extends CirceSuite {
   case class UserSnake(id: Long, first_name: String, last_name: String)
   case class UserCamel(id: Long, firstName: String, lastName: String)
 
-  val snake2camel = Iso[UserSnake, UserCamel] {
-    (s: UserSnake) => UserCamel(s.id, s.first_name, s.last_name)
-  } {
-    (s: UserCamel) => UserSnake(s.id, s.firstName, s.lastName)
+  val snake2camel = Iso[UserSnake, UserCamel] { (s: UserSnake) =>
+    UserCamel(s.id, s.first_name, s.last_name)
+  } { (s: UserCamel) =>
+    UserSnake(s.id, s.firstName, s.lastName)
   }
 
   val john: Json = Json.obj(
-    "id"         -> 1.asJson,
+    "id" -> 1.asJson,
     "first_name" -> "John".asJson,
-    "last_name"  -> "Doe".asJson
+    "last_name" -> "Doe".asJson
   )
 
   "deriveDecoderWithIso[A, B]" should "create a decoder[B] with an Iso[A, B]" in {
