@@ -7,6 +7,7 @@ package optics {
 }
 
 package object optics {
+
   /** Derives a [[io.circe.Decoder]][B] from a Decoder[A] and [[monocle.Iso]][A, B].
    *
    *  @tparam A the type parameter of the existent Decoder.

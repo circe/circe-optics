@@ -12,7 +12,7 @@ class OpticsSuite extends CirceSuite {
    * For the purposes of these tests we consider `Double.NaN` to be equal to
    * itself.
    */
-  implicit override val catsKernelStdOrderForDouble: Order[Double] with Hash[Double] = 
+  implicit override val catsKernelStdOrderForDouble: Order[Double] with Hash[Double] =
     new cats.kernel.instances.DoubleOrder {
       override def eqv(x: Double, y: Double): Boolean =
         (x.isNaN && y.isNaN) || x == y
