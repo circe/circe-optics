@@ -12,7 +12,7 @@ class JsonPathSuite extends CirceSuite {
   object Car {
     implicit val eq: Eq[Car] = Eq.fromUniversalEquals[Car]
     implicit val decoder: Decoder[Car] = deriveDecoder[Car]
-    implicit val encoder: ObjectEncoder[Car] = deriveEncoder[Car]
+    implicit val encoder: Encoder.AsObject[Car] = deriveEncoder[Car]
   }
 
   val john: Json = Json.obj(
