@@ -10,24 +10,39 @@ val compilerOptions = Seq(
   "-language:existentials",
   "-language:higherKinds",
   "-unchecked",
-  "-Yno-adapted-args",
   "-Ywarn-dead-code",
-  "-Ywarn-numeric-widen",
-  "-Ywarn-unused-import",
-  "-Xfuture"
+  "-Ywarn-numeric-widen"
 )
 
-val circeVersion = "0.11.1"
-val monocleVersion = "1.5.1-cats"
-val previousCirceOpticsVersion = "0.10.0"
+val circeVersion = "0.12.0-RC1"
+val monocleVersion = "2.0.0-RC1"
+val previousCirceOpticsVersion = "0.11.0"
+
+def priorTo2_13(scalaVersion: String): Boolean =
+  CrossVersion.partialVersion(scalaVersion) match {
+    case Some((2, minor)) if minor < 13 => true
+    case _                              => false
+  }
 
 val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
+  scalacOptions ++= (
+    if (priorTo2_13(scalaVersion.value))
+      Seq(
+        "-Xfuture",
+        "-Yno-adapted-args",
+        "-Ywarn-unused-import"
+      )
+    else
+      Seq(
+        "-Ywarn-unused:imports"
+      )
+  ),
   scalacOptions in (Compile, console) ~= {
-    _.filterNot(Set("-Ywarn-unused-import"))
+    _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-unused:imports"))
   },
   scalacOptions in (Test, console) ~= {
-    _.filterNot(Set("-Ywarn-unused-import"))
+    _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-unused:imports"))
   },
   coverageHighlighting := true,
   (scalastyleSources in Compile) ++= (unmanagedSourceDirectories in Compile).value
@@ -52,11 +67,16 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
       "com.github.julien-truffaut" %%% "monocle-law" % monocleVersion % Test,
       "io.circe" %%% "circe-core" % circeVersion,
       "io.circe" %%% "circe-generic" % circeVersion % Test,
-      "io.circe" %%% "circe-testing" % circeVersion % Test
+      "io.circe" %%% "circe-testing" % circeVersion % Test,
+      "org.scalatestplus" %%% "scalatestplus-scalacheck" % "1.0.0-SNAP8" % Test
     ),
     ghpagesNoJekyll := true,
     docMappingsApiDir := "api",
     addMappingsToSiteDir(mappings in (Compile, packageDoc), docMappingsApiDir)
+  )
+  .jsSettings(
+    libraryDependencies +=
+      "io.github.cquiroz" %%% "scala-java-time" % "2.0.0-RC3" % Test
   )
 
 lazy val opticsJVM = optics.jvm
