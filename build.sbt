@@ -15,7 +15,7 @@ val compilerOptions = Seq(
 )
 
 val circeVersion = "0.12.0-RC4"
-val monocleVersion = "2.0.0-RC1"
+val monocleVersion = "2.0.0"
 val previousCirceOpticsVersion = "0.11.0"
 
 def priorTo2_13(scalaVersion: String): Boolean =
