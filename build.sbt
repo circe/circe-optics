@@ -14,7 +14,7 @@ val compilerOptions = Seq(
   "-Ywarn-numeric-widen"
 )
 
-val circeVersion = "0.12.0-RC4"
+val circeVersion = "0.12.1"
 val monocleVersion = "2.0.0"
 val previousCirceOpticsVersion = "0.11.0"
 
