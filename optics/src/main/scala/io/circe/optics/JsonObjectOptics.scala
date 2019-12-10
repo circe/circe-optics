@@ -29,8 +29,8 @@ trait JsonObjectOptics extends ListInstances {
   implicit final lazy val jsonObjectAt: At[JsonObject, String, Option[Json]] =
     new At[JsonObject, String, Option[Json]] {
       final def at(field: String): Lens[JsonObject, Option[Json]] =
-        Lens[JsonObject, Option[Json]](_.apply(field))(
-          optVal => obj => optVal.fold(obj.remove(field))(value => obj.add(field, value))
+        Lens[JsonObject, Option[Json]](_.apply(field))(optVal =>
+          obj => optVal.fold(obj.remove(field))(value => obj.add(field, value))
         )
     }
 
