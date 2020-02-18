@@ -74,7 +74,8 @@ object LawsTests extends Laws {
       "modify id = id" -> Prop.forAll((s: S, i: I) => laws(i).modifyIdentity(s)),
       "compose modify" -> Prop.forAll((s: S, g: A => A, h: A => A, i: I) => laws(i).composeModify(s, g, h)),
       "consistent set with modify" -> Prop.forAll((s: S, a: A, i: I) => laws(i).consistentSetModify(s, a)),
-      "consistent modify with modifyId" -> Prop.forAll((s: S, g: A => A, i: I) => laws(i).consistentModifyModifyId(s, g)
+      "consistent modify with modifyId" -> Prop.forAll((s: S, g: A => A, i: I) =>
+        laws(i).consistentModifyModifyId(s, g)
       ),
       "consistent getOption with modifyId" -> Prop.forAll((s: S, i: I) => laws(i).consistentGetOptionModifyId(s))
     )
