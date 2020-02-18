@@ -68,7 +68,8 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
       "io.circe" %%% "circe-core" % circeVersion,
       "io.circe" %%% "circe-generic" % circeVersion % Test,
       "io.circe" %%% "circe-testing" % circeVersion % Test,
-      "org.scalatestplus" %%% "scalatestplus-scalacheck" % "3.1.0.0-RC2" % Test
+      "org.scalatestplus" %%% "scalacheck-1-14" % "3.1.0.1" % Test,
+      "org.typelevel" %%% "discipline-scalatest" % "1.0.0" % Test
     ),
     ghpagesNoJekyll := true,
     docMappingsApiDir := "api",
@@ -89,9 +90,7 @@ lazy val publishSettings = Seq(
   licenses := Seq("Apache 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
   publishMavenStyle := true,
   publishArtifact in Test := false,
-  pomIncludeRepository := { _ =>
-    false
-  },
+  pomIncludeRepository := { _ => false },
   publishTo := {
     val nexus = "https://oss.sonatype.org/"
     if (isSnapshot.value)

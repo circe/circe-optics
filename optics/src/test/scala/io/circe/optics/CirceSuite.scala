@@ -7,6 +7,7 @@ import io.circe.testing.{ ArbitraryInstances, EqInstances }
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatestplus.scalacheck.{ Checkers, ScalaCheckDrivenPropertyChecks }
 import org.typelevel.discipline.Laws
+import org.typelevel.discipline.scalatest.FlatSpecDiscipline
 import scala.language.implicitConversions
 
 /**
@@ -14,6 +15,7 @@ import scala.language.implicitConversions
  */
 trait CirceSuite
     extends AnyFlatSpec
+    with FlatSpecDiscipline
     with ScalaCheckDrivenPropertyChecks
     with AllInstances
     with AllSyntax

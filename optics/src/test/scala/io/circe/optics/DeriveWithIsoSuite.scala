@@ -10,10 +10,8 @@ class DeriveWithIsoSuite extends CirceSuite {
   case class UserSnake(id: Long, first_name: String, last_name: String)
   case class UserCamel(id: Long, firstName: String, lastName: String)
 
-  val snake2camel = Iso[UserSnake, UserCamel] { (s: UserSnake) =>
-    UserCamel(s.id, s.first_name, s.last_name)
-  } { (s: UserCamel) =>
-    UserSnake(s.id, s.firstName, s.lastName)
+  val snake2camel = Iso[UserSnake, UserCamel]((s: UserSnake) => UserCamel(s.id, s.first_name, s.last_name)) {
+    (s: UserCamel) => UserSnake(s.id, s.firstName, s.lastName)
   }
 
   val john: Json = Json.obj(
