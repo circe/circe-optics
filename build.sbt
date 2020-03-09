@@ -15,7 +15,7 @@ val compilerOptions = Seq(
 )
 
 val circeVersion = "0.13.0"
-val monocleVersion = "2.0.2"
+val monocleVersion = "2.0.4"
 val previousCirceOpticsVersion = "0.11.0"
 
 def priorTo2_13(scalaVersion: String): Boolean =
@@ -77,7 +77,7 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
   )
   .jsSettings(
     libraryDependencies +=
-      "io.github.cquiroz" %%% "scala-java-time" % "2.0.0-RC3" % Test
+      "io.github.cquiroz" %%% "scala-java-time" % "2.0.0-RC5" % Test
   )
 
 lazy val opticsJVM = optics.jvm
