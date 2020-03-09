@@ -77,7 +77,7 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
   )
   .jsSettings(
     libraryDependencies +=
-      "io.github.cquiroz" %%% "scala-java-time" % "2.0.0-RC3" % Test
+      "io.github.cquiroz" %%% "scala-java-time" % "2.0.0-RC4" % Test
   )
 
 lazy val opticsJVM = optics.jvm
