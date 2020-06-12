@@ -41,6 +41,7 @@ class OpticsSuite extends CirceSuite {
 
   checkAll("plated Json", LawsTests.traversalTests(plate[Json]))
 
+  checkAll("jsonObjectIso", LawsTests.isoTests(jsonObjectIso))
   checkAll("jsonObjectEach", LawsTests.eachTests[JsonObject, Json])
   checkAll("jsonObjectAt", LawsTests.atTests[JsonObject, String, Option[Json]])
   checkAll("jsonObjectIndex", LawsTests.indexTests[JsonObject, String, Json])

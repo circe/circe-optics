@@ -3,7 +3,7 @@ package io.circe.optics
 import cats.{ Applicative, Foldable, Monoid, Traverse }
 import cats.instances.ListInstances
 import io.circe.{ Json, JsonObject }
-import monocle.{ Fold, Lens, Traversal }
+import monocle.{ Fold, Iso, Lens, Traversal }
 import monocle.function.{ At, Each, FilterIndex, Index }
 
 /**
@@ -33,6 +33,9 @@ trait JsonObjectOptics extends ListInstances {
           obj => optVal.fold(obj.remove(field))(value => obj.add(field, value))
         )
     }
+
+  final lazy val jsonObjectIso: Iso[JsonObject, Map[String, Json]] =
+    Iso((_: JsonObject).toMap)(JsonObject.fromMap)
 
   implicit final lazy val jsonObjectFilterIndex: FilterIndex[JsonObject, String, Json] =
     new FilterIndex[JsonObject, String, Json] {
