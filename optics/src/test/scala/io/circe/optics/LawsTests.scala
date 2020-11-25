@@ -3,9 +3,9 @@ package io.circe.optics
 import cats.Eq
 import cats.instances.list._
 import cats.instances.option._
-import monocle.{ Lens, Optional, Prism, Traversal }
+import monocle.{ Iso, Lens, Optional, Prism, Traversal }
 import monocle.function.{ At, Each, FilterIndex, Index }
-import monocle.law.{ LensLaws, OptionalLaws, PrismLaws, TraversalLaws }
+import monocle.law.{ IsoLaws, LensLaws, OptionalLaws, PrismLaws, TraversalLaws }
 import monocle.law.discipline.isEqToProp
 import org.scalacheck.{ Arbitrary, Prop, Shrink }
 import org.typelevel.discipline.Laws
@@ -96,6 +96,24 @@ object LawsTests extends Laws {
       "consistent set with modify" -> Prop.forAll((s: S, a: A) => laws.consistentSetModify(s, a)),
       "consistent modify with modifyId" -> Prop.forAll((s: S, g: A => A) => laws.consistentModifyModifyId(s, g)),
       "consistent getOption with modifyId" -> Prop.forAll((s: S) => laws.consistentGetOptionModifyId(s))
+    )
+  }
+
+  def isoTests[S: Arbitrary: Shrink: Eq, A: Arbitrary: Shrink: Eq](iso: Iso[S, A])(
+    implicit
+    arbAA: Arbitrary[A => A]
+  ): RuleSet = {
+    val laws: IsoLaws[S, A] = new IsoLaws(iso)
+
+    new SimpleRuleSet(
+      "Iso",
+      "round trip one way" -> Prop.forAll((s: S) => laws.roundTripOneWay(s)),
+      "round trip other way" -> Prop.forAll((a: A) => laws.roundTripOtherWay(a)),
+      "modify id = id" -> Prop.forAll((s: S) => laws.modifyIdentity(s)),
+      "compose modify" -> Prop.forAll((s: S, f: A => A, g: A => A) => laws.composeModify(s, f, g)),
+      "consistent set with modify" -> Prop.forAll((s: S, a: A) => laws.consistentSetModify(s, a)),
+      "consistent modify with modifyId" -> Prop.forAll((s: S, g: A => A) => laws.consistentModifyModifyId(s, g)),
+      "consistent getOption with modifyId" -> Prop.forAll((s: S) => laws.consistentGetModifyId(s))
     )
   }
 
