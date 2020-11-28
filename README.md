@@ -1,6 +1,6 @@
 # circe-optics
 
-[![CI](https://github.com/circe/circe-optics/workflows/Continuous+Integration/badge.svg)](https://github.com/circe/circe-optics/actions)
+[![CI](https://github.com/circe/circe-optics/workflows/Continuous%20Integration/badge.svg)](https://github.com/circe/circe-optics/actions)
 [![Coverage status](https://img.shields.io/codecov/c/github/circe/circe-optics/master.svg)](https://codecov.io/github/circe/circe-optics)
 [![Gitter](https://img.shields.io/badge/gitter-join%20chat-green.svg)](https://gitter.im/circe/circe)
 [![Maven Central](https://img.shields.io/maven-central/v/io.circe/circe-optics_2.12.svg)](https://maven-badges.herokuapp.com/maven-central/io.circe/circe-optics_2.12)
