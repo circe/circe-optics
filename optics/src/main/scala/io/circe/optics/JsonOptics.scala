@@ -65,8 +65,7 @@ trait JsonOptics {
 
   implicit final lazy val jsonPlated: Plated[Json] = new Plated[Json] {
     val plate: Traversal[Json, Json] = new Traversal[Json, Json] {
-      def modifyF[F[_]](f: Json => F[Json])(a: Json)(
-        implicit
+      def modifyF[F[_]](f: Json => F[Json])(a: Json)(implicit
         F: Applicative[F]
       ): F[Json] =
         a.fold(

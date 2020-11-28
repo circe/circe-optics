@@ -8,7 +8,8 @@ package optics {
 
 package object optics {
 
-  /** Derives a [[io.circe.Decoder]][B] from a Decoder[A] and [[monocle.Iso]][A, B].
+  /**
+   * Derives a [[io.circe.Decoder]][B] from a Decoder[A] and [[monocle.Iso]][A, B].
    *
    *  @tparam A the type parameter of the existent Decoder.
    *  @tparam B the type parameter of the derived Decoder.
@@ -18,7 +19,8 @@ package object optics {
   final def deriveDecoderWithIso[A, B](implicit decoder: Decoder[A], iso: Iso[A, B]): Decoder[B] =
     decoder.map(iso.get)
 
-  /** Derives an [[io.circe.Encoder]][B] from an Encoder[A] and [[monocle.Iso]][A, B].
+  /**
+   * Derives an [[io.circe.Encoder]][B] from an Encoder[A] and [[monocle.Iso]][A, B].
    *
    *  @tparam A the type parameter of the existent Encoder.
    *  @tparam B the type parameter of the derived Encoder.
@@ -28,7 +30,8 @@ package object optics {
   final def deriveEncoderWithIso[A, B](implicit encoder: Encoder[A], iso: Iso[A, B]): Encoder[B] =
     encoder.contramap(iso.reverseGet)
 
-  /** Derives a [[io.circe.Decoder]][B] from a Decoder[A] and [[monocle.Iso]][B, A].
+  /**
+   * Derives a [[io.circe.Decoder]][B] from a Decoder[A] and [[monocle.Iso]][B, A].
    *
    *  @tparam A the type parameter of the existent Decoder.
    *  @tparam B the type parameter of the derived Decoder.
@@ -38,7 +41,8 @@ package object optics {
   final def deriveDecoderWithIsoReverse[B, A](implicit decoder: Decoder[A], iso: Iso[B, A]): Decoder[B] =
     decoder.map(iso.reverseGet)
 
-  /** Derives an [[io.circe.Encoder]][B] from an Encoder[A] and [[monocle.Iso]][B, A].
+  /**
+   * Derives an [[io.circe.Encoder]][B] from an Encoder[A] and [[monocle.Iso]][B, A].
    *
    *  @tparam A the type parameter of the existent Encoder.
    *  @tparam B the type parameter of the derived Encoder.

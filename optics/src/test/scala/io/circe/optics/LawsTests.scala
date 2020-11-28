@@ -15,34 +15,29 @@ import org.typelevel.discipline.Laws
  * instances. If Monocle changes this we will remove this code.
  */
 object LawsTests extends Laws {
-  def atTests[S: Arbitrary: Shrink: Eq, I: Arbitrary: Shrink, A: Arbitrary: Eq](
-    implicit
+  def atTests[S: Arbitrary: Shrink: Eq, I: Arbitrary: Shrink, A: Arbitrary: Eq](implicit
     evAt: At[S, I, A],
     arbAA: Arbitrary[A => A]
   ): RuleSet =
     new SimpleRuleSet("At", lensTests(At.at(_: I)).props: _*)
 
-  def indexTests[S: Arbitrary: Shrink: Eq, I: Arbitrary: Shrink, A: Arbitrary: Shrink: Eq](
-    implicit
+  def indexTests[S: Arbitrary: Shrink: Eq, I: Arbitrary: Shrink, A: Arbitrary: Shrink: Eq](implicit
     evIndex: Index[S, I, A],
     arbAA: Arbitrary[A => A]
   ): RuleSet = new SimpleRuleSet("Index", optionalTests(Index.index(_: I)).props: _*)
 
-  def filterIndexTests[S: Arbitrary: Shrink: Eq, I, A: Arbitrary: Shrink: Eq](
-    implicit
+  def filterIndexTests[S: Arbitrary: Shrink: Eq, I, A: Arbitrary: Shrink: Eq](implicit
     evFilterIndex: FilterIndex[S, I, A],
     arbAA: Arbitrary[A => A],
     arbIB: Arbitrary[I => Boolean]
   ): RuleSet = new SimpleRuleSet("FilterIndex", traversalTests(FilterIndex.filterIndex(_: I => Boolean)).props: _*)
 
-  def eachTests[S: Arbitrary: Shrink: Eq, A: Arbitrary: Shrink: Eq](
-    implicit
+  def eachTests[S: Arbitrary: Shrink: Eq, A: Arbitrary: Shrink: Eq](implicit
     evEach: Each[S, A],
     arbAA: Arbitrary[A => A]
   ): RuleSet = new SimpleRuleSet("Each", traversalTests(Each.each[S, A]).props: _*)
 
-  def lensTests[S: Arbitrary: Eq, A: Arbitrary: Shrink: Eq, I: Arbitrary: Shrink](f: I => Lens[S, A])(
-    implicit
+  def lensTests[S: Arbitrary: Eq, A: Arbitrary: Shrink: Eq, I: Arbitrary: Shrink](f: I => Lens[S, A])(implicit
     arbAA: Arbitrary[A => A]
   ): RuleSet = {
     def laws(i: I) = LensLaws(f(i))
@@ -81,8 +76,7 @@ object LawsTests extends Laws {
     )
   }
 
-  def prismTests[S: Arbitrary: Shrink: Eq, A: Arbitrary: Shrink: Eq](prism: Prism[S, A])(
-    implicit
+  def prismTests[S: Arbitrary: Shrink: Eq, A: Arbitrary: Shrink: Eq](prism: Prism[S, A])(implicit
     arbAA: Arbitrary[A => A]
   ): RuleSet = {
     val laws: PrismLaws[S, A] = new PrismLaws(prism)
@@ -99,8 +93,7 @@ object LawsTests extends Laws {
     )
   }
 
-  def traversalTests[S: Arbitrary: Shrink: Eq, A: Arbitrary: Shrink: Eq](traversal: Traversal[S, A])(
-    implicit
+  def traversalTests[S: Arbitrary: Shrink: Eq, A: Arbitrary: Shrink: Eq](traversal: Traversal[S, A])(implicit
     arbAA: Arbitrary[A => A]
   ): RuleSet = traversalTests[S, A, Unit](_ => traversal)
 
