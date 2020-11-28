@@ -118,6 +118,25 @@ lazy val publishSettings = Seq(
   )
 )
 
+ThisBuild / githubWorkflowJavaVersions := Seq("adopt@1.8")
+// No auto-publish atm. Remove this line to generate publish stage
+ThisBuild / githubWorkflowPublishTargetBranches := Seq.empty
+ThisBuild / githubWorkflowBuild := Seq(
+  WorkflowStep.Run(
+    List("pip install --user codecov"),
+    name = Some("Install codecov")
+  ),
+  WorkflowStep.Sbt(
+    List("clean", "coverage", "test", "coverageReport", "scalastyle", "scalafmtCheckAll"),
+    id = None,
+    name = Some("Test")
+  ),
+  WorkflowStep.Run(
+    List("codecov"),
+    name = Some("Upload codecov")
+  )
+)
+
 lazy val noPublishSettings = Seq(
   publish := {},
   publishLocal := {},
