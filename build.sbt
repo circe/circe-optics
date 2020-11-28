@@ -24,6 +24,8 @@ def priorTo2_13(scalaVersion: String): Boolean =
     case _                              => false
   }
 
+ThisBuild / crossScalaVersions := Seq("2.12.12", "2.13.4")
+
 val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
   scalacOptions ++= (
@@ -122,18 +124,15 @@ ThisBuild / githubWorkflowJavaVersions := Seq("adopt@1.8")
 // No auto-publish atm. Remove this line to generate publish stage
 ThisBuild / githubWorkflowPublishTargetBranches := Seq.empty
 ThisBuild / githubWorkflowBuild := Seq(
-  WorkflowStep.Run(
-    List("pip install --user codecov"),
-    name = Some("Install codecov")
-  ),
   WorkflowStep.Sbt(
     List("clean", "coverage", "test", "coverageReport", "scalastyle", "scalafmtCheckAll"),
     id = None,
     name = Some("Test")
   ),
-  WorkflowStep.Run(
-    List("codecov"),
-    name = Some("Upload codecov")
+  WorkflowStep.Use(
+    "codecov",
+    "codecov-action",
+    "v1"
   )
 )
 
