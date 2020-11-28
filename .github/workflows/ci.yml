@@ -22,7 +22,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        scala: [2.13.1, 2.12.10]
+        scala: [2.12.12, 2.13.4]
         java: [adopt@1.8]
     runs-on: ${{ matrix.os }}
     steps:
@@ -51,11 +51,7 @@ jobs:
       - name: Check that workflows are up to date
         run: sbt ++${{ matrix.scala }} githubWorkflowCheck
 
-      - name: Install codecov
-        run: pip install --user codecov
-
       - name: Test
         run: sbt ++${{ matrix.scala }} clean coverage test coverageReport scalastyle scalafmtCheckAll
 
-      - name: Upload codecov
-        run: codecov
+      - uses: codecov/codecov-action@v1
