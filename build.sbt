@@ -71,7 +71,7 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
       "io.circe" %%% "circe-generic" % circeVersion % Test,
       "io.circe" %%% "circe-testing" % circeVersion % Test,
       "org.scalatestplus" %%% "scalacheck-1-14" % "3.2.2.0" % Test,
-      "org.typelevel" %%% "discipline-scalatest" % "2.1.1" % Test
+      "org.typelevel" %%% "discipline-scalatest" % "2.1.2" % Test
     ),
     ghpagesNoJekyll := true,
     docMappingsApiDir := "api",
@@ -79,7 +79,7 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
   )
   .jsSettings(
     libraryDependencies +=
-      "io.github.cquiroz" %%% "scala-java-time" % "2.1.0" % Test,
+      "io.github.cquiroz" %%% "scala-java-time" % "2.2.0" % Test,
     coverageEnabled := false
   )
 
