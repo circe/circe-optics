@@ -47,6 +47,7 @@ val baseSettings = Seq(
     _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-unused:imports"))
   },
   coverageHighlighting := true,
+  coverageEnabled := !priorTo2_13(scalaVersion.value),
   (scalastyleSources in Compile) ++= (unmanagedSourceDirectories in Compile).value
 )
 
