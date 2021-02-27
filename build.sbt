@@ -24,7 +24,7 @@ def priorTo2_13(scalaVersion: String): Boolean =
     case _                              => false
   }
 
-ThisBuild / crossScalaVersions := Seq("2.12.12", "2.13.4")
+ThisBuild / crossScalaVersions := Seq("2.12.13", "2.13.5")
 
 val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
@@ -47,6 +47,7 @@ val baseSettings = Seq(
     _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-unused:imports"))
   },
   coverageHighlighting := true,
+  coverageEnabled := !priorTo2_13(scalaVersion.value),
   (scalastyleSources in Compile) ++= (unmanagedSourceDirectories in Compile).value
 )
 
@@ -71,7 +72,7 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
       "io.circe" %%% "circe-generic" % circeVersion % Test,
       "io.circe" %%% "circe-testing" % circeVersion % Test,
       "org.scalatestplus" %%% "scalacheck-1-14" % "3.2.2.0" % Test,
-      "org.typelevel" %%% "discipline-scalatest" % "2.1.1" % Test
+      "org.typelevel" %%% "discipline-scalatest" % "2.1.2" % Test
     ),
     ghpagesNoJekyll := true,
     docMappingsApiDir := "api",
@@ -79,7 +80,7 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
   )
   .jsSettings(
     libraryDependencies +=
-      "io.github.cquiroz" %%% "scala-java-time" % "2.1.0" % Test,
+      "io.github.cquiroz" %%% "scala-java-time" % "2.2.0" % Test,
     coverageEnabled := false
   )
 
@@ -130,9 +131,11 @@ ThisBuild / githubWorkflowBuild := Seq(
     name = Some("Test")
   ),
   WorkflowStep.Use(
-    "codecov",
-    "codecov-action",
-    "v1"
+    UseRef.Public(
+      "codecov",
+      "codecov-action",
+      "v1"
+    )
   )
 )
 
