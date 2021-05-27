@@ -24,7 +24,7 @@ def priorTo2_13(scalaVersion: String): Boolean =
     case _                              => false
   }
 
-ThisBuild / crossScalaVersions := Seq("2.12.13", "2.13.5")
+ThisBuild / crossScalaVersions := Seq("2.12.13", "2.13.6")
 
 val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
@@ -80,7 +80,7 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
   )
   .jsSettings(
     libraryDependencies +=
-      "io.github.cquiroz" %%% "scala-java-time" % "2.2.2" % Test,
+      "io.github.cquiroz" %%% "scala-java-time" % "2.3.0" % Test,
     coverageEnabled := false
   )
 
