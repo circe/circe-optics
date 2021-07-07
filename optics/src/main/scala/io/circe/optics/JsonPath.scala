@@ -52,6 +52,9 @@ final case class JsonPath(json: Optional[Json, Json]) extends Dynamic {
 
   final def as[A](implicit decode: Decoder[A], encode: Encoder[A]): Optional[Json, A] =
     json.composePrism(UnsafeOptics.parse)
+
+  final def atAs[A](field: String)(implicit decode: Decoder[A], encode: Encoder[A]): Optional[Json, Option[A]] =
+    at(field).composePrism(UnsafeOptics.optionParse)
 }
 
 final object JsonPath {
@@ -103,6 +106,9 @@ final case class JsonTraversalPath(json: Traversal[Json, Json]) extends Dynamic 
 
   final def as[A](implicit decode: Decoder[A], encode: Encoder[A]): Traversal[Json, A] =
     json.composePrism(UnsafeOptics.parse)
+
+  final def atAs[A](field: String)(implicit decode: Decoder[A], encode: Encoder[A]): Traversal[Json, Option[A]] =
+    at(field).composePrism(UnsafeOptics.optionParse)
 }
 
 final case class JsonFoldPath(json: Fold[Json, Json]) extends Dynamic {
@@ -147,6 +153,9 @@ final case class JsonFoldPath(json: Fold[Json, Json]) extends Dynamic {
 
   final def as[A](implicit decode: Decoder[A], encode: Encoder[A]): Fold[Json, A] =
     json.composePrism(UnsafeOptics.parse)
+
+  final def atAs[A](field: String)(implicit decode: Decoder[A], encode: Encoder[A]): Fold[Json, Option[A]] =
+    at(field).composePrism(UnsafeOptics.optionParse)
 }
 
 object UnsafeOptics {
@@ -162,6 +171,26 @@ object UnsafeOptics {
       case Right(a) => Some(a)
       case Left(_)  => None
     })(encode(_))
+
+  /**
+   * Decode a value at the current location.
+   * But give Option[A] instead of A in order to treat non-exist field as None
+   *
+   * Note that this operation is not lawful, since the same reason as above
+   * It is provided here for convenience, but may change in future versions.
+   */
+  final val keyMissingNone: Option[None.type] = Some(None)
+  def optionParse[A](implicit decode: Decoder[A], encode: Encoder[A]): Prism[Option[Json], Option[A]] =
+    Prism[Option[Json], Option[A]](
+      {
+        case Some(json) =>
+          decode.decodeJson(json) match {
+            case Right(a) => Some(Some(a))
+            case Left(_)  => None
+          }
+        case None => keyMissingNone
+      }
+    )(_.map(encode(_)))
 
   /**
    * Select if a value matches a predicate
