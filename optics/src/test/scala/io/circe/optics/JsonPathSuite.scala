@@ -33,6 +33,10 @@ class JsonPathSuite extends CirceSuite {
     assert(root.address.street_number.int.getOption(john) === Some(12))
   }
 
+  it should "return Some(None) when selected field doesn't exist" in {
+    assert(root.address.atAs[Int]("street_district").getOption(john) === Some(None))
+  }
+
   it should "support traversal by array index" in {
     assert(root.cars.index(1).model.string.getOption(john) === Some("suv"))
   }
