@@ -1,6 +1,6 @@
 import sbtcrossproject.{ CrossType, crossProject }
 
-organization in ThisBuild := "io.circe"
+ThisBuild / organization := "io.circe"
 
 val compilerOptions = Seq(
   "-deprecation",
@@ -40,17 +40,17 @@ val baseSettings = Seq(
         "-Ywarn-unused:imports"
       )
   ),
-  scalacOptions in (Compile, console) ~= {
+  Compile / console / scalacOptions ~= {
     _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-unused:imports"))
   },
-  scalacOptions in (Test, console) ~= {
+  Test / console / scalacOptions ~= {
     _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-unused:imports"))
   },
   coverageHighlighting := true,
   coverageEnabled := (
     if (priorTo2_13(scalaVersion.value)) false else coverageEnabled.value
   ),
-  (scalastyleSources in Compile) ++= (unmanagedSourceDirectories in Compile).value
+  Compile / scalastyleSources ++= (Compile / unmanagedSourceDirectories).value
 )
 
 val allSettings = baseSettings ++ publishSettings
@@ -78,7 +78,7 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
     ),
     ghpagesNoJekyll := true,
     docMappingsApiDir := "api",
-    addMappingsToSiteDir(mappings in (Compile, packageDoc), docMappingsApiDir)
+    addMappingsToSiteDir(Compile / packageDoc / mappings, docMappingsApiDir)
   )
   .jsSettings(
     libraryDependencies +=
@@ -96,7 +96,7 @@ lazy val publishSettings = Seq(
   homepage := Some(url("https://github.com/circe/circe-optics")),
   licenses := Seq("Apache 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")),
   publishMavenStyle := true,
-  publishArtifact in Test := false,
+  Test / publishArtifact := false,
   pomIncludeRepository := { _ => false },
   publishTo := {
     val nexus = "https://oss.sonatype.org/"
