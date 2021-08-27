@@ -181,16 +181,14 @@ object UnsafeOptics {
    */
   final val keyMissingNone: Option[None.type] = Some(None)
   def optionParse[A](implicit decode: Decoder[A], encode: Encoder[A]): Prism[Option[Json], Option[A]] =
-    Prism[Option[Json], Option[A]](
-      {
-        case Some(json) =>
-          decode.decodeJson(json) match {
-            case Right(a) => Some(Some(a))
-            case Left(_)  => None
-          }
-        case None => keyMissingNone
-      }
-    )(_.map(encode(_)))
+    Prism[Option[Json], Option[A]] {
+      case Some(json) =>
+        decode.decodeJson(json) match {
+          case Right(a) => Some(Some(a))
+          case Left(_)  => None
+        }
+      case None => keyMissingNone
+    }(_.map(encode(_)))
 
   /**
    * Select if a value matches a predicate
