@@ -1,8 +1,8 @@
-import sbtcrossproject.{ CrossType, crossProject }
+import sbtcrossproject.CrossType
 
 ThisBuild / organization := "io.circe"
 
-val compilerOptions = Seq(
+val compilerOptionsScala2 = Seq(
   "-deprecation",
   "-encoding",
   "UTF-8",
@@ -14,9 +14,26 @@ val compilerOptions = Seq(
   "-Ywarn-numeric-widen"
 )
 
+val compilerOptionsScala3 = Seq(
+  "-encoding",
+  "utf8",
+  "-feature",
+  "-deprecation",
+  "-unchecked",
+  "-language:experimental.macros",
+  "-language:higherKinds"
+)
+
 val circeVersion = "0.14.1"
-val monocleVersion = "2.1.0"
+val monocleLegacyVersion = "2.1.0"
+val monocleVersion = "3.1.0"
 val previousCirceOpticsVersion = "0.11.0"
+
+def priorTo3(scalaVersion: String): Boolean =
+  CrossVersion.partialVersion(scalaVersion) match {
+    case Some((2, _)) => true
+    case _            => false
+  }
 
 def priorTo2_13(scalaVersion: String): Boolean =
   CrossVersion.partialVersion(scalaVersion) match {
@@ -24,10 +41,15 @@ def priorTo2_13(scalaVersion: String): Boolean =
     case _                              => false
   }
 
-ThisBuild / crossScalaVersions := Seq("2.12.14", "2.13.6")
+ThisBuild / crossScalaVersions := Seq("2.12.14", "2.13.6", "3.1.0")
 
 val baseSettings = Seq(
-  scalacOptions ++= compilerOptions,
+  scalacOptions ++= (
+    if (priorTo3(scalaVersion.value))
+      compilerOptionsScala2
+    else
+      compilerOptionsScala3
+    ),
   scalacOptions ++= (
     if (priorTo2_13(scalaVersion.value))
       Seq(
@@ -35,10 +57,12 @@ val baseSettings = Seq(
         "-Yno-adapted-args",
         "-Ywarn-unused-import"
       )
-    else
+    else if (priorTo3(scalaVersion.value))
       Seq(
         "-Ywarn-unused:imports"
       )
+    else
+      Seq()
   ),
   Compile / console / scalacOptions ~= {
     _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-unused:imports"))
@@ -68,13 +92,23 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
     moduleName := "circe-optics",
     mimaPreviousArtifacts := Set("io.circe" %% "circe-optics" % previousCirceOpticsVersion),
     libraryDependencies ++= Seq(
-      "com.github.julien-truffaut" %%% "monocle-core" % monocleVersion,
-      "com.github.julien-truffaut" %%% "monocle-law" % monocleVersion % Test,
       "io.circe" %%% "circe-core" % circeVersion,
       "io.circe" %%% "circe-generic" % circeVersion % Test,
       "io.circe" %%% "circe-testing" % circeVersion % Test,
-      "org.scalatestplus" %%% "scalacheck-1-14" % "3.2.2.0" % Test,
+      "org.scalatestplus" %%% "scalacheck-1-15" % "3.2.10.0" % Test,
       "org.typelevel" %%% "discipline-scalatest" % "2.1.5" % Test
+    ),
+    libraryDependencies ++= (
+      if (priorTo2_13(scalaVersion.value))
+        Seq(
+            "com.github.julien-truffaut" %%% "monocle-core" % monocleLegacyVersion,
+            "com.github.julien-truffaut" %%% "monocle-law" % monocleLegacyVersion % Test,
+        )
+      else
+        Seq(
+          "dev.optics" %%% "monocle-core" % monocleVersion,
+          "dev.optics" %%% "monocle-law" % monocleVersion % Test,
+        )
     ),
     ghpagesNoJekyll := true,
     docMappingsApiDir := "api",

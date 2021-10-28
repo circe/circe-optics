@@ -59,7 +59,7 @@ trait JsonOptics {
         _ => F.pure(s),
         _ => F.pure(s),
         arr => F.map(Each.each[Vector[Json], Json].modifyF(f)(arr))(Json.arr(_: _*)),
-        obj => F.map(Each.each[JsonObject, Json].modifyF(f)(obj))(Json.fromJsonObject)
+        obj => F.map(Each.each[JsonObject, Json].modifyF(f)(obj))(Json.fromJsonObject(_))
       )
   }
 
