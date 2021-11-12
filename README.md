@@ -34,5 +34,5 @@ limitations under the License.
 [api-docs]: https://circe.github.io/circe-optics/api/io/circe/
 [circe]: https://github.com/circe/circe
 [code-of-conduct]: https://www.scala-lang.org/conduct.html
-[contributing]: https://circe.github.io/circe/contributing.html
-[monocle]: https://github.com/julien-truffaut/Monocle
+[contributing]: https://github.com/circe/circe/blob/master/CONTRIBUTING.md
+[monocle]: https://github.com/optics-dev/Monocle

@@ -68,8 +68,8 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
     moduleName := "circe-optics",
     mimaPreviousArtifacts := Set("io.circe" %% "circe-optics" % previousCirceOpticsVersion),
     libraryDependencies ++= Seq(
-      "com.github.julien-truffaut" %%% "monocle-core" % monocleVersion,
-      "com.github.julien-truffaut" %%% "monocle-law" % monocleVersion % Test,
+      "optics-dev" %%% "monocle-core" % monocleVersion,
+      "optics-dev" %%% "monocle-law" % monocleVersion % Test,
       "io.circe" %%% "circe-core" % circeVersion,
       "io.circe" %%% "circe-generic" % circeVersion % Test,
       "io.circe" %%% "circe-testing" % circeVersion % Test,
