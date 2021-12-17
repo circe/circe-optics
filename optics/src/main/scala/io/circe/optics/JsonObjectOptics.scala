@@ -34,18 +34,15 @@ trait JsonObjectOptics extends ListInstances {
     }
 
   implicit final lazy val jsonObjectFilterIndex: FilterIndex[JsonObject, String, Json] =
-    new FilterIndex[JsonObject, String, Json] {
-      final def filterIndex(p: String => Boolean) = new Traversal[JsonObject, Json] {
-        final def modifyA[F[_]](f: Json => F[Json])(from: JsonObject)(implicit
-          F: Applicative[F]
-        ): F[JsonObject] =
+    (p: String => Boolean) =>
+      new Traversal[JsonObject, Json] {
+        final def modifyA[F[_]](f: Json => F[Json])(from: JsonObject)(implicit F: Applicative[F]): F[JsonObject] =
           F.map(
             Traverse[List].traverse(from.toList) { case (field, json) =>
               F.map(if (p(field)) f(json) else F.point(json))((field, _))
             }
           )(JsonObject.fromFoldable(_))
       }
-    }
 
   implicit final lazy val jsonObjectIndex: Index[JsonObject, String, Json] = Index.fromAt
 }
