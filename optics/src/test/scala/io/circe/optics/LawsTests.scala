@@ -44,12 +44,12 @@ object LawsTests extends Laws {
 
     new SimpleRuleSet(
       "Lens",
-      "set what you get" -> Prop.forAll((s: S, i: I) => laws(i).getSet(s)),
-      "get what you set" -> Prop.forAll((s: S, a: A, i: I) => laws(i).setGet(s, a)),
-      "set idempotent" -> Prop.forAll((s: S, a: A, i: I) => laws(i).setIdempotent(s, a)),
+      "set what you get" -> Prop.forAll((s: S, i: I) => laws(i).getReplace(s)),
+      "get what you set" -> Prop.forAll((s: S, a: A, i: I) => laws(i).replaceGet(s, a)),
+      "set idempotent" -> Prop.forAll((s: S, a: A, i: I) => laws(i).replaceIdempotent(s, a)),
       "modify id = id" -> Prop.forAll((s: S, i: I) => laws(i).modifyIdentity(s)),
       "compose modify" -> Prop.forAll((s: S, g: A => A, h: A => A, i: I) => laws(i).composeModify(s, g, h)),
-      "consistent set with modify" -> Prop.forAll((s: S, a: A, i: I) => laws(i).consistentSetModify(s, a)),
+      "consistent set with modify" -> Prop.forAll((s: S, a: A, i: I) => laws(i).consistentReplaceModify(s, a)),
       "consistent modify with modifyId" ->
         Prop.forAll((s: S, g: A => A, i: I) => laws(i).consistentModifyModifyId(s, g)),
       "consistent get with modifyId" -> Prop.forAll((s: S, i: I) => laws(i).consistentGetModifyId(s))
@@ -63,12 +63,12 @@ object LawsTests extends Laws {
 
     new SimpleRuleSet(
       "Optional",
-      "set what you get" -> Prop.forAll((s: S, i: I) => laws(i).getOptionSet(s)),
-      "get what you set" -> Prop.forAll((s: S, a: A, i: I) => laws(i).setGetOption(s, a)),
-      "set idempotent" -> Prop.forAll((s: S, a: A, i: I) => laws(i).setIdempotent(s, a)),
+      "set what you get" -> Prop.forAll((s: S, i: I) => laws(i).getOptionReplace(s)),
+      "get what you set" -> Prop.forAll((s: S, a: A, i: I) => laws(i).replaceGetOption(s, a)),
+      "set idempotent" -> Prop.forAll((s: S, a: A, i: I) => laws(i).replaceIdempotent(s, a)),
       "modify id = id" -> Prop.forAll((s: S, i: I) => laws(i).modifyIdentity(s)),
       "compose modify" -> Prop.forAll((s: S, g: A => A, h: A => A, i: I) => laws(i).composeModify(s, g, h)),
-      "consistent set with modify" -> Prop.forAll((s: S, a: A, i: I) => laws(i).consistentSetModify(s, a)),
+      "consistent set with modify" -> Prop.forAll((s: S, a: A, i: I) => laws(i).consistentReplaceModify(s, a)),
       "consistent modify with modifyId" -> Prop.forAll((s: S, g: A => A, i: I) =>
         laws(i).consistentModifyModifyId(s, g)
       ),
@@ -87,7 +87,7 @@ object LawsTests extends Laws {
       "round trip other way" -> Prop.forAll((a: A) => laws.roundTripOtherWay(a)),
       "modify id = id" -> Prop.forAll((s: S) => laws.modifyIdentity(s)),
       "compose modify" -> Prop.forAll((s: S, f: A => A, g: A => A) => laws.composeModify(s, f, g)),
-      "consistent set with modify" -> Prop.forAll((s: S, a: A) => laws.consistentSetModify(s, a)),
+      "consistent set with modify" -> Prop.forAll((s: S, a: A) => laws.consistentReplaceModify(s, a)),
       "consistent modify with modifyId" -> Prop.forAll((s: S, g: A => A) => laws.consistentModifyModifyId(s, g)),
       "consistent getOption with modifyId" -> Prop.forAll((s: S) => laws.consistentGetOptionModifyId(s))
     )
@@ -106,7 +106,7 @@ object LawsTests extends Laws {
       "Traversal",
       "headOption" -> Prop.forAll((s: S, i: I) => laws(i).headOption(s)),
       "get what you set" -> Prop.forAll((s: S, f: A => A, i: I) => laws(i).modifyGetAll(s, f)),
-      "set idempotent" -> Prop.forAll((s: S, a: A, i: I) => laws(i).setIdempotent(s, a)),
+      "set idempotent" -> Prop.forAll((s: S, a: A, i: I) => laws(i).replaceIdempotent(s, a)),
       "modify id = id" -> Prop.forAll((s: S, i: I) => laws(i).modifyIdentity(s)),
       "compose modify" -> Prop.forAll((s: S, f: A => A, g: A => A, i: I) => laws(i).composeModify(s, f, g))
     )

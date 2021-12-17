@@ -4,7 +4,7 @@ import cats.kernel.{ Hash, Order }
 import io.circe.optics.all._
 import io.circe.{ Json, JsonNumber, JsonObject }
 import monocle.function.Plated.plate
-import monocle.syntax.all._
+import monocle.syntax.applied._
 
 class OpticsSuite extends CirceSuite {
 

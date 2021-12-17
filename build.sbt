@@ -15,30 +15,16 @@ val compilerOptions = Seq(
 )
 
 val circeVersion = "0.14.1"
-val monocleVersion = "2.1.0"
+val monocleVersion = "3.1.0"
 val previousCirceOpticsVersion = "0.11.0"
 
-def priorTo2_13(scalaVersion: String): Boolean =
-  CrossVersion.partialVersion(scalaVersion) match {
-    case Some((2, minor)) if minor < 13 => true
-    case _                              => false
-  }
-
-ThisBuild / crossScalaVersions := Seq("2.12.14", "2.13.6")
+ThisBuild / scalaVersion := "2.13.6"
+ThisBuild / crossScalaVersions := Seq("2.13.6", "3.0.2")
 
 val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
-  scalacOptions ++= (
-    if (priorTo2_13(scalaVersion.value))
-      Seq(
-        "-Xfuture",
-        "-Yno-adapted-args",
-        "-Ywarn-unused-import"
-      )
-    else
-      Seq(
-        "-Ywarn-unused:imports"
-      )
+  scalacOptions ++= Seq(
+    "-Ywarn-unused:imports"
   ),
   Compile / console / scalacOptions ~= {
     _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-unused:imports"))
@@ -47,9 +33,7 @@ val baseSettings = Seq(
     _.filterNot(Set("-Ywarn-unused-import", "-Ywarn-unused:imports"))
   },
   coverageHighlighting := true,
-  coverageEnabled := (
-    if (priorTo2_13(scalaVersion.value)) false else coverageEnabled.value
-  ),
+  coverageEnabled := coverageEnabled.value,
   Compile / scalastyleSources ++= (Compile / unmanagedSourceDirectories).value
 )
 
@@ -68,12 +52,12 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
     moduleName := "circe-optics",
     mimaPreviousArtifacts := Set("io.circe" %% "circe-optics" % previousCirceOpticsVersion),
     libraryDependencies ++= Seq(
-      "optics-dev" %%% "monocle-core" % monocleVersion,
-      "optics-dev" %%% "monocle-law" % monocleVersion % Test,
+      "dev.optics" %%% "monocle-core" % monocleVersion,
+      "dev.optics" %%% "monocle-law" % monocleVersion % Test,
       "io.circe" %%% "circe-core" % circeVersion,
       "io.circe" %%% "circe-generic" % circeVersion % Test,
       "io.circe" %%% "circe-testing" % circeVersion % Test,
-      "org.scalatestplus" %%% "scalacheck-1-14" % "3.2.2.0" % Test,
+      "org.scalatestplus" %%% "scalacheck-1-15" % "3.2.10.0" % Test,
       "org.typelevel" %%% "discipline-scalatest" % "2.1.5" % Test
     ),
     ghpagesNoJekyll := true,
