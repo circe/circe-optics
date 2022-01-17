@@ -18,8 +18,8 @@ val circeVersion = "0.14.1"
 val monocleVersion = "3.1.0"
 val previousCirceOpticsVersion = "0.11.0"
 
-ThisBuild / scalaVersion := "2.13.6"
-ThisBuild / crossScalaVersions := Seq("2.13.6", "3.0.2")
+ThisBuild / scalaVersion := "2.13.7"
+ThisBuild / crossScalaVersions := Seq("2.13.7", "3.0.2")
 
 val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
