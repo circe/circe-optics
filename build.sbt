@@ -20,8 +20,8 @@ val previousCirceOpticsVersion = "0.11.0"
 
 def priorTo2_13(scalaVersion: String): Boolean =
   CrossVersion.partialVersion(scalaVersion) match {
-    case Some((2, minor)) if minor < 13 => true
-    case _                              => false
+    case Some(2, minor) if minor < 13 => true
+    case _                            => false
   }
 
 ThisBuild / crossScalaVersions := Seq("2.12.15", "2.13.7")

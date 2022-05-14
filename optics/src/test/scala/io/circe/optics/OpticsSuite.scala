@@ -15,7 +15,7 @@ class OpticsSuite extends CirceSuite {
   implicit override val catsKernelStdOrderForDouble: Order[Double] with Hash[Double] =
     new cats.kernel.instances.DoubleOrder {
       override def eqv(x: Double, y: Double): Boolean =
-        (x.isNaN && y.isNaN) || x == y
+        x.isNaN && y.isNaN || x == y
     }
 
   checkAll("Json to Unit", LawsTests.prismTests(jsonNull))
