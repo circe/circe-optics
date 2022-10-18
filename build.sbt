@@ -1,4 +1,5 @@
-import sbtcrossproject.{ CrossType, crossProject }
+import sbtcrossproject.{ crossProject, CrossType }
+import sbtghactions.JavaSpec.Distribution.Adopt
 
 ThisBuild / organization := "io.circe"
 
@@ -14,7 +15,7 @@ val compilerOptions = Seq(
   "-Ywarn-numeric-widen"
 )
 
-val circeVersion = "0.14.1"
+val circeVersion = "0.14.3"
 val monocleVersion = "2.1.0"
 val previousCirceOpticsVersion = "0.11.0"
 
@@ -24,7 +25,7 @@ def priorTo2_13(scalaVersion: String): Boolean =
     case _                              => false
   }
 
-ThisBuild / crossScalaVersions := Seq("2.12.15", "2.13.7")
+ThisBuild / crossScalaVersions := Seq("2.12.16", "2.13.10")
 
 val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
@@ -74,7 +75,7 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
       "io.circe" %%% "circe-generic" % circeVersion % Test,
       "io.circe" %%% "circe-testing" % circeVersion % Test,
       "org.scalatestplus" %%% "scalacheck-1-14" % "3.2.2.0" % Test,
-      "org.typelevel" %%% "discipline-scalatest" % "2.1.5" % Test
+      "org.typelevel" %%% "discipline-scalatest" % "2.2.0" % Test
     ),
     ghpagesNoJekyll := true,
     docMappingsApiDir := "api",
@@ -82,7 +83,7 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
   )
   .jsSettings(
     libraryDependencies +=
-      "io.github.cquiroz" %%% "scala-java-time" % "2.3.0" % Test,
+      "io.github.cquiroz" %%% "scala-java-time" % "2.4.0" % Test,
     coverageEnabled := false
   )
 
@@ -123,7 +124,7 @@ lazy val publishSettings = Seq(
   )
 )
 
-ThisBuild / githubWorkflowJavaVersions := Seq("adopt@1.8")
+ThisBuild / githubWorkflowJavaVersions := Seq(JavaSpec(Adopt, "1.8"))
 // No auto-publish atm. Remove this line to generate publish stage
 ThisBuild / githubWorkflowPublishTargetBranches := Seq.empty
 ThisBuild / githubWorkflowBuild := Seq(
