@@ -24,7 +24,7 @@ def priorTo2_13(scalaVersion: String): Boolean =
     case _                              => false
   }
 
-ThisBuild / crossScalaVersions := Seq("2.12.15", "2.13.10")
+ThisBuild / crossScalaVersions := Seq("2.12.17", "2.13.10")
 
 val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
