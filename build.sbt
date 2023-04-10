@@ -15,7 +15,7 @@ val compilerOptions = Seq(
   "-Ywarn-numeric-widen"
 )
 
-val circeVersion = "0.14.3"
+val circeVersion = "0.14.5"
 val monocleVersion = "2.1.0"
 val previousCirceOpticsVersion = "0.11.0"
 
@@ -25,7 +25,7 @@ def priorTo2_13(scalaVersion: String): Boolean =
     case _                              => false
   }
 
-ThisBuild / crossScalaVersions := Seq("2.12.16", "2.13.10")
+ThisBuild / crossScalaVersions := Seq("2.12.17", "2.13.10")
 
 val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
