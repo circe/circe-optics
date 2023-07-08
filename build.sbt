@@ -24,7 +24,7 @@ def priorTo2_13(scalaVersion: String): Boolean =
     case _                              => false
   }
 
-ThisBuild / crossScalaVersions := Seq("2.12.17", "2.13.7")
+ThisBuild / crossScalaVersions := Seq("2.12.18", "2.13.7")
 
 val baseSettings = Seq(
   scalacOptions ++= compilerOptions,
@@ -73,7 +73,7 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
       "io.circe" %%% "circe-core" % circeVersion,
       "io.circe" %%% "circe-generic" % circeVersion % Test,
       "io.circe" %%% "circe-testing" % circeVersion % Test,
-      "org.scalatestplus" %%% "scalacheck-1-14" % "3.2.2.0" % Test,
+      "org.scalatestplus" %%% "scalacheck-1-15" % "3.2.11.0" % Test,
       "org.typelevel" %%% "discipline-scalatest" % "2.1.5" % Test
     ),
     ghpagesNoJekyll := true,
@@ -82,7 +82,7 @@ lazy val optics = crossProject(JSPlatform, JVMPlatform)
   )
   .jsSettings(
     libraryDependencies +=
-      "io.github.cquiroz" %%% "scala-java-time" % "2.3.0" % Test,
+      "io.github.cquiroz" %%% "scala-java-time" % "2.5.0" % Test,
     coverageEnabled := false
   )
 
