@@ -33,7 +33,7 @@ lazy val optics = crossProject(JVMPlatform, JSPlatform)
       "io.circe" %%% "circe-testing" % Versions.circe % Test,
       "org.scalatestplus" %%% "scalacheck-1-15" % Versions.scalaTestPlus % Test,
       "org.typelevel" %%% "discipline-scalatest" % Versions.discipline % Test
-    ),
+    )
   )
 
 ThisBuild / developers := List(
