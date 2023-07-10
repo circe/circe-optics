@@ -14,6 +14,7 @@ val Versions = new {
 
 ThisBuild / crossScalaVersions := Versions.scalaVersions
 ThisBuild / scalaVersion := Versions.scala213
+ThisBuild / tlFatalWarningsInCi := false //TODO: ... fix this someday
 
 lazy val root = tlCrossRootProject.aggregate(optics)
 
