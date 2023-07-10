@@ -22,7 +22,7 @@ import io.circe.JsonNumber
 import monocle.Prism
 
 import java.math.MathContext
-import java.math.{BigDecimal => JavaBigDecimal}
+import java.math.{ BigDecimal => JavaBigDecimal }
 
 /**
  * Optics instances for [[io.circe.JsonObject]].
