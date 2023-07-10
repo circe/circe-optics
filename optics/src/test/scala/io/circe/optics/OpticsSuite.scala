@@ -16,9 +16,12 @@
 
 package io.circe.optics
 
-import cats.kernel.{ Hash, Order }
+import cats.kernel.Hash
+import cats.kernel.Order
+import io.circe.Json
+import io.circe.JsonNumber
+import io.circe.JsonObject
 import io.circe.optics.all._
-import io.circe.{ Json, JsonNumber, JsonObject }
 import monocle.function.Plated.plate
 import monocle.syntax.all._
 

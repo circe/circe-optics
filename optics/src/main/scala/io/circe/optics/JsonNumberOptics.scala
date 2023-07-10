@@ -16,9 +16,13 @@
 
 package io.circe.optics
 
-import io.circe.{ JsonBigDecimal, JsonLong, JsonNumber }
-import java.math.{ BigDecimal => JavaBigDecimal, MathContext }
+import io.circe.JsonBigDecimal
+import io.circe.JsonLong
+import io.circe.JsonNumber
 import monocle.Prism
+
+import java.math.MathContext
+import java.math.{BigDecimal => JavaBigDecimal}
 
 /**
  * Optics instances for [[io.circe.JsonObject]].

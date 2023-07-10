@@ -19,8 +19,8 @@ package io.circe.optics
 import cats.kernel.Eq
 import io.circe._
 import io.circe.generic.semiauto._
-import io.circe.syntax._
 import io.circe.optics.JsonPath.root
+import io.circe.syntax._
 
 class JsonPathSuite extends CirceSuite {
 

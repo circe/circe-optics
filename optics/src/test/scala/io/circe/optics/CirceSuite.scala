@@ -16,14 +16,18 @@
 
 package io.circe.optics
 
-import cats.kernel.Eq
 import cats.instances.AllInstances
-import cats.syntax.{ AllSyntax, EitherOps }
-import io.circe.testing.{ ArbitraryInstances, EqInstances }
+import cats.kernel.Eq
+import cats.syntax.AllSyntax
+import cats.syntax.EitherOps
+import io.circe.testing.ArbitraryInstances
+import io.circe.testing.EqInstances
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatestplus.scalacheck.{ Checkers, ScalaCheckDrivenPropertyChecks }
+import org.scalatestplus.scalacheck.Checkers
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import org.typelevel.discipline.Laws
 import org.typelevel.discipline.scalatest.FlatSpecDiscipline
+
 import scala.language.implicitConversions
 
 /**

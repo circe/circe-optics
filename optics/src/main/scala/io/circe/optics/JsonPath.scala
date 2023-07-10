@@ -16,11 +16,21 @@
 
 package io.circe.optics
 
-import io.circe.{ Decoder, Encoder, Json, JsonNumber, JsonObject }
+import io.circe.Decoder
+import io.circe.Encoder
+import io.circe.Json
+import io.circe.JsonNumber
+import io.circe.JsonObject
 import io.circe.optics.JsonObjectOptics._
 import io.circe.optics.JsonOptics._
-import monocle.{ Fold, Optional, Prism, Traversal }
-import monocle.function.{ At, FilterIndex, Index }
+import monocle.Fold
+import monocle.Optional
+import monocle.Prism
+import monocle.Traversal
+import monocle.function.At
+import monocle.function.FilterIndex
+import monocle.function.Index
+
 import scala.language.dynamics
 
 final case class JsonPath(json: Optional[Json, Json]) extends Dynamic {
