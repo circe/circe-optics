@@ -1,12 +1,12 @@
 val Versions = new {
-  val circe = "0.14.1"
+  val circe = "0.14.5"
   val monocle = "2.1.0"
   val discipline = "2.1.5"
-  val scalaTestPlus = "3.2.2.0"
+  val scalaTestPlus = "3.2.11.0"
 
   val previousCirceOptics = "0.11.0"
 
-  val scala212 = "2.12.17"
+  val scala212 = "2.12.18"
   val scala213 = "2.13.7"
 
   val scalaVersions = Seq(scala212, scala213)
@@ -31,7 +31,7 @@ lazy val optics = crossProject(JVMPlatform, JSPlatform)
       "io.circe" %%% "circe-core" % Versions.circe,
       "io.circe" %%% "circe-generic" % Versions.circe % Test,
       "io.circe" %%% "circe-testing" % Versions.circe % Test,
-      "org.scalatestplus" %%% "scalacheck-1-14" % Versions.scalaTestPlus % Test,
+      "org.scalatestplus" %%% "scalacheck-1-15" % Versions.scalaTestPlus % Test,
       "org.typelevel" %%% "discipline-scalatest" % Versions.discipline % Test
     ),
   )
