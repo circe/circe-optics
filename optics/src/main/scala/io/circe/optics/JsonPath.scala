@@ -31,8 +31,6 @@ import monocle.function.At
 import monocle.function.FilterIndex
 import monocle.function.Index
 
-import scala.language.dynamics
-
 final case class JsonPath(json: Optional[Json, Json]) extends Dynamic {
   final def `null`: Optional[Json, Unit] = json.composePrism(jsonNull)
   final def boolean: Optional[Json, Boolean] = json.composePrism(jsonBoolean)
