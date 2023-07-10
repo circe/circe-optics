@@ -4,7 +4,7 @@ val Versions = new {
   val discipline = "2.1.5"
   val scalaTestPlus = "3.2.11.0"
 
-  val previousCirceOptics = "0.11.0"
+  val previousCirceOptics = "0.14.1"
 
   val scala212 = "2.12.18"
   val scala213 = "2.13.7"
