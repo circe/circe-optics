@@ -44,7 +44,7 @@ trait JsonObjectOptics extends ListInstances {
 
   implicit final lazy val jsonObjectEach: Each[JsonObject, Json] = new Each[JsonObject, Json] {
     final def each: Traversal[JsonObject, Json] = new Traversal[JsonObject, Json] {
-      final def modifyF[F[_]](f: Json => F[Json])(from: JsonObject)(implicit
+      final def modifyA[F[_]](f: Json => F[Json])(from: JsonObject)(implicit
         F: Applicative[F]
       ): F[JsonObject] = from.traverse(f)
     }
@@ -60,8 +60,8 @@ trait JsonObjectOptics extends ListInstances {
 
   implicit final lazy val jsonObjectFilterIndex: FilterIndex[JsonObject, String, Json] =
     new FilterIndex[JsonObject, String, Json] {
-      final def filterIndex(p: String => Boolean) = new Traversal[JsonObject, Json] {
-        final def modifyF[F[_]](f: Json => F[Json])(from: JsonObject)(implicit
+      final def filterIndex(p: String => Boolean): Traversal[JsonObject, Json] = new Traversal[JsonObject, Json] {
+        final def modifyA[F[_]](f: Json => F[Json])(from: JsonObject)(implicit
           F: Applicative[F]
         ): F[JsonObject] =
           F.map(
@@ -75,4 +75,4 @@ trait JsonObjectOptics extends ListInstances {
   implicit final lazy val jsonObjectIndex: Index[JsonObject, String, Json] = Index.fromAt
 }
 
-final object JsonObjectOptics extends JsonObjectOptics
+object JsonObjectOptics extends JsonObjectOptics

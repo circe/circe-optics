@@ -35,4 +35,4 @@ limitations under the License.
 [circe]: https://github.com/circe/circe
 [code-of-conduct]: https://www.scala-lang.org/conduct.html
 [contributing]: https://circe.github.io/circe/contributing.html
-[monocle]: https://github.com/julien-truffaut/Monocle
+[monocle]: https://github.com/optics-dev/Monocle

@@ -1,15 +1,15 @@
 val Versions = new {
   val circe = "0.14.5"
-  val monocle = "2.1.0"
+  val monocle = "3.2.0"
   val discipline = "2.1.5"
   val scalaTestPlus = "3.2.11.0"
 
   val previousCirceOptics = "0.14.1"
 
-  val scala212 = "2.12.17"
   val scala213 = "2.13.7"
+  val scala3 = "3.2.2"
 
-  val scalaVersions = Seq(scala212, scala213)
+  val scalaVersions = Seq(scala213, scala3)
 }
 
 ThisBuild / crossScalaVersions := Versions.scalaVersions
@@ -27,8 +27,9 @@ lazy val optics = crossProject(JVMPlatform, JSPlatform)
     description := "Monocle lenses and other tools for working with JSON values",
     mimaPreviousArtifacts := Set("io.circe" %% "circe-optics" % Versions.previousCirceOptics),
     libraryDependencies ++= Seq(
-      "com.github.julien-truffaut" %%% "monocle-core" % Versions.monocle,
-      "com.github.julien-truffaut" %%% "monocle-law" % Versions.monocle % Test,
+      "dev.optics" %%% "monocle-core" % Versions.monocle,
+      "dev.optics" %%% "monocle-macro" % Versions.monocle % Test,
+      "dev.optics" %%% "monocle-law" % Versions.monocle % Test,
       "io.circe" %%% "circe-core" % Versions.circe,
       "io.circe" %%% "circe-generic" % Versions.circe % Test,
       "io.circe" %%% "circe-testing" % Versions.circe % Test,
