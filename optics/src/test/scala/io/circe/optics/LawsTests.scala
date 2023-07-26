@@ -1,13 +1,40 @@
+/*
+ * Copyright 2023 circe
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package io.circe.optics
 
 import cats.Eq
 import cats.instances.list._
 import cats.instances.option._
-import monocle.{ Lens, Optional, Prism, Traversal }
-import monocle.function.{ At, Each, FilterIndex, Index }
-import monocle.law.{ LensLaws, OptionalLaws, PrismLaws, TraversalLaws }
+import monocle.Lens
+import monocle.Optional
+import monocle.Prism
+import monocle.Traversal
+import monocle.function.At
+import monocle.function.Each
+import monocle.function.FilterIndex
+import monocle.function.Index
+import monocle.law.LensLaws
+import monocle.law.OptionalLaws
+import monocle.law.PrismLaws
+import monocle.law.TraversalLaws
 import monocle.law.discipline.isEqToProp
-import org.scalacheck.{ Arbitrary, Prop, Shrink }
+import org.scalacheck.Arbitrary
+import org.scalacheck.Prop
+import org.scalacheck.Shrink
 import org.typelevel.discipline.Laws
 
 /**
