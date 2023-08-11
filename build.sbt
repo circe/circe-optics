@@ -7,7 +7,7 @@ val Versions = new {
   val previousCirceOptics = "0.14.1"
 
   val scala212 = "2.12.17"
-  val scala213 = "2.13.11"
+  val scala213 = "2.13.7"
 
   val scalaVersions = Seq(scala212, scala213)
 }
