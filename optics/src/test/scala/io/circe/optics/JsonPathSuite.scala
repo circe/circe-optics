@@ -67,8 +67,8 @@ class JsonPathSuite extends CirceSuite {
   }
 
   it should "support insertion and deletion" in {
-    assert(root.at("first_name").setOption(None)(john) === john.asObject.map(_.remove("first_name").asJson))
-    assert(root.at("foo").set(Some(true.asJson))(john).asObject.flatMap(_.apply("foo")) === Some(Json.True))
+    assert(root.at("first_name").replaceOption(None)(john) === john.asObject.map(_.remove("first_name").asJson))
+    assert(root.at("foo").replace(Some(true.asJson))(john).asObject.flatMap(_.apply("foo")) === Some(Json.True))
   }
 
   it should "support codec" in {
@@ -99,7 +99,7 @@ class JsonPathSuite extends CirceSuite {
 
   it should "support an unsafe filtering by value" in {
     assert(
-      root.cars.each.filterUnsafe(root.maxSpeed.int.exist(_ > 100)).model.string.set("new")(john) ===
+      root.cars.each.filterUnsafe(root.maxSpeed.int.exist(_ > 100)).model.string.replace("new")(john) ===
         Json.obj(
           "first_name" -> "John".asJson,
           "last_name" -> "Doe".asJson,

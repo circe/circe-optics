@@ -10,6 +10,18 @@ This project provides tools for working with JSON values using [circe][circe] an
 it was promoted to its own project in order to decouple its releases (and the Scala versions it
 is cross-published for) from the main circe modules.
 
+## Versioning
+
+This library releases at a different cadence than [Circe], any apparent relationship between the [Circe] version numbers
+and circe-optics version numbers are a coincidence and NOT intentional.  
+Please use the following table for determining capability with the corresponding [Circe] versions.
+
+| Circe Optics Version | Circe  | Monocle | Scala 2 | Scala 3 | Scala JVM | Scala.JS |
+|----------------------|--------|---------|---------|---------|-----------|----------|
+| 0.15.0 and later     | 0.14.x | 3.x     | ✅      | ✅      | ✅        | ✅       |
+| 0.14.1               | 0.14.x | 2.x     | ✅      | ❌      | ✅        | ✅       |
+| 0.14.0               | 0.14.x | 2.x     | ✅      | ❌      | ✅        | ✅       |
+
 ## Contributors and participation
 
 This project supports the Scala [code of conduct][code-of-conduct] and we want
@@ -35,4 +47,4 @@ limitations under the License.
 [circe]: https://github.com/circe/circe
 [code-of-conduct]: https://www.scala-lang.org/conduct.html
 [contributing]: https://circe.github.io/circe/contributing.html
-[monocle]: https://github.com/julien-truffaut/Monocle
+[monocle]: https://github.com/optics-dev/Monocle

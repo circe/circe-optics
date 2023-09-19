@@ -19,7 +19,7 @@ package io.circe
 import monocle.Iso
 
 package optics {
-  final object all extends JsonNumberOptics with JsonObjectOptics with JsonOptics
+  object all extends JsonNumberOptics with JsonObjectOptics with JsonOptics
 }
 
 package object optics {
