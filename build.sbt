@@ -27,7 +27,7 @@ lazy val optics = crossProject(JVMPlatform, JSPlatform)
     description := "Monocle lenses and other tools for working with JSON values",
     mimaPreviousArtifacts := {
       if (VersionNumber(scalaVersion.value).matchesSemVer(SemanticSelector(">=3.0.0"))) {
-        // since we're not yet release artifact under Scala 3
+        // since we haven't yet release any artifact under Scala 3
         Set.empty
       } else Set("io.circe" %% "circe-optics" % Versions.previousCirceOptics)
     },
