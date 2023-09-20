@@ -12,7 +12,7 @@ val Versions = new {
 
 ThisBuild / crossScalaVersions := Versions.scalaVersions
 ThisBuild / scalaVersion := Versions.scala213
-ThisBuild / tlFatalWarningsInCi := false //TODO: ... fix this someday
+ThisBuild / tlFatalWarnings := false //TODO: ... fix this someday
 val semVerRegex = """(\d+\.\d+\.)(\d+)(?:-SNAPSHOT)?""".r
 
 lazy val root = tlCrossRootProject.aggregate(optics)
