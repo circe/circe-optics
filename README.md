@@ -16,11 +16,10 @@ This library releases at a different cadence than [Circe], any apparent relation
 and circe-optics version numbers are a coincidence and NOT intentional.  
 Please use the following table for determining capability with the corresponding [Circe] versions.
 
-| Circe Optics Version | Circe  | Monocle | Scala 2 | Scala 3 | Scala JVM | Scala.JS |
-|----------------------|--------|---------|---------|---------|-----------|----------|
-| 0.15.0 and later     | 0.14.x | 3.x     | ✅      | ✅      | ✅        | ✅       |
-| 0.14.1               | 0.14.x | 2.x     | ✅      | ❌      | ✅        | ✅       |
-| 0.14.0               | 0.14.x | 2.x     | ✅      | ❌      | ✅        | ✅       |
+| Circe Optics Version | Circe  | Monocle | Scala 2.12 | Scala 2.13 | Scala 3 | Scala JVM | Scala.JS |
+|----------------------|--------|---------|------------|------------|---------|-----------|----------|
+| 0.15.x               | 0.14.x | 3.x     | ❌         | ✅         | ✅      | ✅        | ✅       |
+| 0.14.x               | 0.14.x | 2.x     | ✅         | ✅         | ❌      | ✅        | ✅       |
 
 ## Contributors and participation
 
