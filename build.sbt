@@ -13,6 +13,9 @@ val Versions = new {
 ThisBuild / crossScalaVersions := Versions.scalaVersions
 ThisBuild / scalaVersion := Versions.scala213
 ThisBuild / tlFatalWarnings := false //TODO: ... fix this someday
+
+ThisBuild / tlBaseVersion := "0.15"
+
 val semVerRegex = """(\d+\.\d+\.)(\d+)(?:-SNAPSHOT)?""".r
 
 lazy val root = tlCrossRootProject.aggregate(optics)
@@ -24,10 +27,6 @@ lazy val optics = crossProject(JVMPlatform, JSPlatform)
   .settings(
     name := "circe-optics",
     description := "Monocle lenses and other tools for working with JSON values",
-    mimaPreviousArtifacts := (version.value match {
-      case semVerRegex(majorMinor, "0")   => Set.empty
-      case semVerRegex(majorMinor, patch) => Set("io.circe" %% "circe-optics" % (majorMinor + (patch.toInt - 1)))
-    }),
     libraryDependencies ++= Seq(
       "dev.optics" %%% "monocle-core" % Versions.monocle,
       "dev.optics" %%% "monocle-macro" % Versions.monocle % Test,
