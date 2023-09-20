@@ -76,6 +76,6 @@ class OpticsSuite extends CirceSuite {
   }
 
   "jsonObjectFields" should "fold over all fields" in forAll { (obj: JsonObject) =>
-    assert(obj.applyFold(JsonObjectOptics.jsonObjectFields).foldMap(List(_)) === obj.toList)
+    assert(obj.focus().andThen(JsonObjectOptics.jsonObjectFields).foldMap(List(_)) === obj.toList)
   }
 }

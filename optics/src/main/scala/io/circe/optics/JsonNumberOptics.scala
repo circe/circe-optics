@@ -59,6 +59,6 @@ trait JsonNumberOptics {
     )
 }
 
-final object JsonNumberOptics extends JsonNumberOptics {
+object JsonNumberOptics extends JsonNumberOptics {
   private[optics] def isNegativeZero(jn: JsonNumber): Boolean = jn.toBiggerDecimal.isNegativeZero
 }
