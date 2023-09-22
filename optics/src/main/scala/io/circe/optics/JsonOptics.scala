@@ -40,12 +40,12 @@ import monocle.function.Plated
 trait JsonOptics {
   final lazy val jsonNull: Prism[Json, Unit] = Prism[Json, Unit](j => if (j.isNull) Some(()) else None)(_ => Json.Null)
   final lazy val jsonBoolean: Prism[Json, Boolean] = Prism[Json, Boolean](_.asBoolean)(Json.fromBoolean)
-  final lazy val jsonBigDecimal: Prism[Json, BigDecimal] = jsonNumber.composePrism(jsonNumberBigDecimal)
-  final lazy val jsonBigInt: Prism[Json, BigInt] = jsonNumber.composePrism(jsonNumberBigInt)
-  final lazy val jsonLong: Prism[Json, Long] = jsonNumber.composePrism(jsonNumberLong)
-  final lazy val jsonInt: Prism[Json, Int] = jsonNumber.composePrism(jsonNumberInt)
-  final lazy val jsonShort: Prism[Json, Short] = jsonNumber.composePrism(jsonNumberShort)
-  final lazy val jsonByte: Prism[Json, Byte] = jsonNumber.composePrism(jsonNumberByte)
+  final lazy val jsonBigDecimal: Prism[Json, BigDecimal] = jsonNumber.andThen(jsonNumberBigDecimal)
+  final lazy val jsonBigInt: Prism[Json, BigInt] = jsonNumber.andThen(jsonNumberBigInt)
+  final lazy val jsonLong: Prism[Json, Long] = jsonNumber.andThen(jsonNumberLong)
+  final lazy val jsonInt: Prism[Json, Int] = jsonNumber.andThen(jsonNumberInt)
+  final lazy val jsonShort: Prism[Json, Short] = jsonNumber.andThen(jsonNumberShort)
+  final lazy val jsonByte: Prism[Json, Byte] = jsonNumber.andThen(jsonNumberByte)
   final lazy val jsonString: Prism[Json, String] = Prism[Json, String](_.asString)(Json.fromString)
   final lazy val jsonNumber: Prism[Json, JsonNumber] = Prism[Json, JsonNumber](_.asNumber)(Json.fromJsonNumber)
   final lazy val jsonObject: Prism[Json, JsonObject] = Prism[Json, JsonObject](_.asObject)(Json.fromJsonObject)
@@ -72,20 +72,20 @@ trait JsonOptics {
 
   /** points to all values of a JsonObject or JsonList */
   final lazy val jsonDescendants: Traversal[Json, Json] = new Traversal[Json, Json] {
-    override def modifyF[F[_]](f: Json => F[Json])(s: Json)(implicit F: Applicative[F]): F[Json] =
+    override def modifyA[F[_]](f: Json => F[Json])(s: Json)(implicit F: Applicative[F]): F[Json] =
       s.fold(
         F.pure(s),
         _ => F.pure(s),
         _ => F.pure(s),
         _ => F.pure(s),
-        arr => F.map(Each.each[Vector[Json], Json].modifyF(f)(arr))(Json.arr(_: _*)),
-        obj => F.map(Each.each[JsonObject, Json].modifyF(f)(obj))(Json.fromJsonObject)
+        arr => F.map(Each.each[Vector[Json], Json].modifyA(f)(arr))(Json.arr(_: _*)),
+        obj => F.map(Each.each[JsonObject, Json].modifyA(f)(obj))(Json.fromJsonObject)
       )
   }
 
   implicit final lazy val jsonPlated: Plated[Json] = new Plated[Json] {
     val plate: Traversal[Json, Json] = new Traversal[Json, Json] {
-      def modifyF[F[_]](f: Json => F[Json])(a: Json)(implicit
+      def modifyA[F[_]](f: Json => F[Json])(a: Json)(implicit
         F: Applicative[F]
       ): F[Json] =
         a.fold(
@@ -100,4 +100,4 @@ trait JsonOptics {
   }
 }
 
-final object JsonOptics extends JsonOptics
+object JsonOptics extends JsonOptics
