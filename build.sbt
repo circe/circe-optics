@@ -1,5 +1,5 @@
 val Versions = new {
-  val circe = "0.14.6"
+  val circe = "0.14.5"
   val monocle = "2.1.0"
   val discipline = "2.2.0"
   val scalaTestPlus = "3.2.11.0"
