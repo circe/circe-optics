@@ -3,7 +3,7 @@
 [![Build](https://github.com/circe/circe-optics/workflows/Continuous%20Integration/badge.svg)](https://github.com/circe/circe-optics/actions)
 [![Coverage status](https://img.shields.io/codecov/c/github/circe/circe-optics/master.svg)](https://codecov.io/github/circe/circe-optics)
 [![Gitter](https://img.shields.io/badge/gitter-join%20chat-green.svg)](https://gitter.im/circe/circe)
-[![Maven Central](https://img.shields.io/maven-central/v/io.circe/circe-optics_2.12.svg)](https://maven-badges.herokuapp.com/maven-central/io.circe/circe-optics_2.12)
+[![Maven Central](https://img.shields.io/maven-central/v/io.circe/circe-optics_2.13.svg)](https://maven-badges.herokuapp.com/maven-central/io.circe/circe-optics_2.13)
 
 This project provides tools for working with JSON values using [circe][circe] and
 [Monocle][monocle]. It was included in the main circe repository until the 0.10.0 release, when
