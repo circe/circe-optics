@@ -5,7 +5,7 @@ val Versions = new {
   val scalaTestPlus = "3.2.11.0"
 
   val scala213 = "2.13.13"
-  val scala3 = "3.3.1"
+  val scala3 = "3.3.3"
 
   val scalaVersions = Seq(scala213, scala3)
 }
