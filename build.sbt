@@ -39,6 +39,9 @@ lazy val optics = crossProject(JVMPlatform, JSPlatform, NativePlatform)
       "org.typelevel" %%% "discipline-scalatest" % Versions.discipline % Test
     )
   )
+  .nativeSettings(
+    tlVersionIntroduced := List("2.12", "2.13", "3").map(_ -> "0.15.1").toMap
+  )
 
 ThisBuild / developers := List(
   Developer("travisbrown", "Travis Brown", "travisrobertbrown@gmail.com", url("https://twitter.com/travisbrown"))
