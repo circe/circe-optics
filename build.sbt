@@ -21,7 +21,7 @@ val semVerRegex = """(\d+\.\d+\.)(\d+)(?:-SNAPSHOT)?""".r
 
 lazy val root = tlCrossRootProject.aggregate(optics)
 
-lazy val optics = crossProject(JVMPlatform, JSPlatform)
+lazy val optics = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .withoutSuffixFor(JVMPlatform)
   .crossType(CrossType.Pure)
   .in(file("optics"))
