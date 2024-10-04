@@ -21,7 +21,7 @@ val semVerRegex = """(\d+\.\d+\.)(\d+)(?:-SNAPSHOT)?""".r
 
 lazy val root = tlCrossRootProject.aggregate(optics)
 
-lazy val optics = crossProject(JVMPlatform, JSPlatform)
+lazy val optics = crossProject(JVMPlatform, JSPlatform, NativePlatform)
   .withoutSuffixFor(JVMPlatform)
   .crossType(CrossType.Pure)
   .in(file("optics"))
@@ -38,6 +38,9 @@ lazy val optics = crossProject(JVMPlatform, JSPlatform)
       "org.scalatestplus" %%% "scalacheck-1-18" % Versions.scalaTestPlus % Test,
       "org.typelevel" %%% "discipline-scalatest" % Versions.discipline % Test
     )
+  )
+  .nativeSettings(
+    tlVersionIntroduced := List("2.12", "2.13", "3").map(_ -> "0.15.1").toMap
   )
 
 ThisBuild / developers := List(
