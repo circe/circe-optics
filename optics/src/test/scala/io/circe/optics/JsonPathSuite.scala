@@ -71,9 +71,8 @@ class JsonPathSuite extends CirceSuite {
     assert(root.at("foo").replace(Some(true.asJson))(john).asObject.flatMap(_.apply("foo")) === Some(Json.True))
   }
 
-  it should "support codec" in {
+  it should "support codec" in
     assert(root.cars.index(0).as[Car].getOption(john) === Some(Car("fancy", 120, automatic = false)))
-  }
 
   "JsonTraversalPath" should "support traversal over each values of a json object" in {
     assert(root.each.string.getAll(john) === List("John", "Doe"))
@@ -97,7 +96,7 @@ class JsonPathSuite extends CirceSuite {
     )
   }
 
-  it should "support an unsafe filtering by value" in {
+  it should "support an unsafe filtering by value" in
     assert(
       root.cars.each.filterUnsafe(root.maxSpeed.int.exist(_ > 100)).model.string.replace("new")(john) ===
         Json.obj(
@@ -114,6 +113,5 @@ class JsonPathSuite extends CirceSuite {
           ).asJson
         )
     )
-  }
 
 }
