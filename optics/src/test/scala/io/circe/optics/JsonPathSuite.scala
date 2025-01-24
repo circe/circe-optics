@@ -45,21 +45,17 @@ class JsonPathSuite extends CirceSuite {
     ).asJson
   )
 
-  "JsonPath" should "support traversal by field name" in {
+  "JsonPath" should "support traversal by field name" in
     assert(root.address.street_number.int.getOption(john) === Some(12))
-  }
 
-  it should "return Some(None) when selected field doesn't exist" in {
+  it should "return Some(None) when selected field doesn't exist" in
     assert(root.address.atAs[Int]("street_district").getOption(john) === Some(None))
-  }
 
-  it should "support traversal by array index" in {
+  it should "support traversal by array index" in
     assert(root.cars.index(1).model.string.getOption(john) === Some("suv"))
-  }
 
-  it should "support traversal by array index using apply" in {
+  it should "support traversal by array index using apply" in
     assert(root.cars(1).model.string.getOption(john) === Some("suv"))
-  }
 
   it should "support traversal by array index using apply on the root" in {
     val jsonArray = List("first".asJson, "second".asJson).asJson
@@ -71,33 +67,27 @@ class JsonPathSuite extends CirceSuite {
     assert(root.at("foo").replace(Some(true.asJson))(john).asObject.flatMap(_.apply("foo")) === Some(Json.True))
   }
 
-  it should "support codec" in {
+  it should "support codec" in
     assert(root.cars.index(0).as[Car].getOption(john) === Some(Car("fancy", 120, automatic = false)))
-  }
 
-  "JsonTraversalPath" should "support traversal over each values of a json object" in {
+  "JsonTraversalPath" should "support traversal over each values of a json object" in
     assert(root.each.string.getAll(john) === List("John", "Doe"))
-  }
 
-  it should "support traversal over each values of a json array" in {
+  it should "support traversal over each values of a json array" in
     assert(root.cars.each.maxSpeed.int.getAll(john) === List(120, 80))
-  }
 
-  it should "support filtering by field of json object" in {
+  it should "support filtering by field of json object" in
     assert(root.filterByField(_.contains("first")).string.getAll(john) === List("John"))
-  }
 
-  it should "support filtering by index of json array" in {
+  it should "support filtering by index of json array" in
     assert(root.cars.filterByIndex(_ % 2 == 1).as[Car].getAll(john) === List(Car("suv", 80, automatic = true)))
-  }
 
-  it should "support a safe filtering by value" in {
+  it should "support a safe filtering by value" in
     assert(
       root.cars.each.filter(root.maxSpeed.int.exist(_ > 100)).model.string.getAll(john) === List("fancy")
     )
-  }
 
-  it should "support an unsafe filtering by value" in {
+  it should "support an unsafe filtering by value" in
     assert(
       root.cars.each.filterUnsafe(root.maxSpeed.int.exist(_ > 100)).model.string.replace("new")(john) ===
         Json.obj(
@@ -114,6 +104,5 @@ class JsonPathSuite extends CirceSuite {
           ).asJson
         )
     )
-  }
 
 }
