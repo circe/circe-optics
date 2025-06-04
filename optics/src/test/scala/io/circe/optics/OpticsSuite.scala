@@ -65,9 +65,8 @@ class OpticsSuite extends CirceSuite {
   checkAll("jsonObjectIndex", LawsTests.indexTests[JsonObject, String, Json])
   checkAll("jsonObjectFilterIndex", LawsTests.filterIndexTests[JsonObject, String, Json])
 
-  "jsonDouble" should "round-trip in reverse with Double.NaN" in {
+  "jsonDouble" should "round-trip in reverse with Double.NaN" in
     assert(jsonDouble.getOption(jsonDouble.reverseGet(Double.NaN)) === Some(Double.NaN))
-  }
 
   it should "partial round-trip with numbers larger than Double.MaxValue" in {
     val json = Json.fromJsonNumber(JsonNumber.fromString((BigDecimal(Double.MaxValue) + 1).toString).get)
