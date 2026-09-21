@@ -4,7 +4,7 @@ val Versions = new {
   val discipline = "2.3.0"
   val scalaTestPlus = "3.2.20.0"
 
-  val scala213 = "2.13.18"
+  val scala213 = "3.9.0"
   val scala3 = "3.3.7"
 
   val scalaVersions = Seq(scala213, scala3)
